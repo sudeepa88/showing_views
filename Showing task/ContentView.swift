@@ -8,10 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
+    @State private var newText = ""
+        @State private var enteredTexts: [String] = []
+
+        var body: some View {
+            VStack {
+                TextField("Enter Text", text: $newText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                Button(action: {
+                    self.enteredTexts.append(self.newText)
+                    self.newText = ""
+                }) {
+                    Text("Submit")
+                }
+
+                ForEach(enteredTexts, id: \.self){ id in
+                    VStack {
+                        Text(id)
+                    }
+                }//id in loop
+            }
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
